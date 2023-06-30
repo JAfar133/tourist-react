@@ -76,6 +76,7 @@ function MainPage() {
       <div style={{width: '100vw', height: 500, marginBottom: 40 }} ref={mapRef} tabIndex="0">
         <MapComponent
           selectedObject={selectedObject}
+          setSelectedOject={setSelectedObject}
           objects={objects}
           showObjectList={true}
           showBasemap={true}

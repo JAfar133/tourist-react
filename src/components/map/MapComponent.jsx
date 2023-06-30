@@ -56,6 +56,7 @@ const MapComponent = (props) => {
   
   useEffect(()=>{
     props.selectedObject && mapRef.current.setView(props.selectedObject, markerZoom, {animate: true})
+    props.setSelectedOject && props.setSelectedOject(null)
   },[props.selectedObject])
   
   return (
@@ -65,35 +66,46 @@ const MapComponent = (props) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={basemap}
         />
+        
         <FaLocationCrosshairs
           className={classes.map__geolocation}
           onClick={()=>enableGeoLocation()}
         />
-        {props.showBasemap && <CustomSelect
-          className={classes.map__select}
-          value={basemap}
-          options={basemapsDict}
-          onChange={basemap => setBasemap(basemap)}
-        />}
-        {props.showObjectList && <ul className={classes.map__list}>
-          {
-            objects.map((obj)=>
-              <li key={obj.id} onClick={() => handleListItemClick(obj)}>{obj.name}</li>
-            )
-          }
-        </ul>}
+        
+        {
+          props.showBasemap && <CustomSelect
+            className={classes.map__select}
+            value={basemap}
+            options={basemapsDict}
+            onChange={basemap => setBasemap(basemap)}
+          />
+        }
+        
+        {
+          props.showObjectList && <ul className={classes.map__list}>
+            {
+              objects.map((obj)=>
+                <li key={obj.id} onClick={() => handleListItemClick(obj)}>{obj.name}</li>
+              )
+            }
+          </ul>
+        }
+        
         <div className={classes.map__toggle}>
           <label htmlFor="markertoggle">Показать маркеры</label>
           <input type="checkbox" name="markertoggle" id="markertoggle"
                  checked={showMarkers}
                  onChange={(e)=>setShowMarkers(e.currentTarget.checked)}/>
         </div>
-        {userLocation.loaded && !userLocation.error &&
+        
+        {
+          userLocation.loaded && !userLocation.error &&
           <Marker position={[userLocation.coordinates.lat, userLocation.coordinates.lon]} icon={userIcon} >
             <Tooltip>
               Вы
             </Tooltip>
-          </Marker>}
+          </Marker>
+        }
         <MarkerClusterGroup>
           {
             showMarkers && objects?.map((obj)=>
