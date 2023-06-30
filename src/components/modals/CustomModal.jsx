@@ -7,8 +7,8 @@ const CustomModal = ({children, visible, setVisible}) => {
     rootClasses.push(classes.modal__active)
   }
   return (
-    <div className={rootClasses.join(' ')} onClick={()=>setVisible(false)}>
-      <div className={classes.my_modal} onClick={(e)=>e.stopPropagation()}>
+    <div className={rootClasses.join(' ')} onMouseDown={() => setVisible(false)}>
+      <div className={classes.my_modal} onMouseDown={(e)=>e.stopPropagation()} >
         <button
           onClick={()=>setVisible(false)}
           type="button"

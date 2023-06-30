@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import TouristObjectList from "../components/objects/TouristObjectList";
 import "../styles/main.css"
 import CustomModal from "../components/modals/CustomModal";
@@ -15,8 +15,9 @@ function MainPage() {
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(5)
   const [totalPages, setTotalPages] = useState(0)
+  const [selectedObject, setSelectedObject] = useState(null);
   let pagesArray = getPagesArray(totalPages)
-  
+  const mapRef = useRef(null)
   const fetchTouristObjects = useCallback(() => {
     const response = ObjectService.getTouristObjects(limit, page);
     setObjects(response.objects);
@@ -33,8 +34,6 @@ function MainPage() {
     }
   }, [page, totalPages])
   
-  
-  
   const createObject = (newObject) => {
     ObjectService.createTouristObject(newObject)
     fetchTouristObjects()
@@ -45,12 +44,17 @@ function MainPage() {
     fetchTouristObjects()
   }
   
+  useEffect(()=>{
+    mapRef.current.focus();
+  },[selectedObject])
+  
   return (
     <div className={"mt-5"}>
       <div className="app">
         <CustomModal visible={modal} setVisible={setModal}>
           <FormObject create={createObject}/>
         </CustomModal>
+        
         {
           objects.length
             ? <TouristObjectList
@@ -60,6 +64,7 @@ function MainPage() {
               setModal={setModal}
               limit={limit}
               setLimit={limit=>setLimit(parseInt(limit))}
+              setSelectedObject={setSelectedObject}
               objects={objects}
               remove={removeObject}
               title={"Туристические места Крыма"}
@@ -68,8 +73,13 @@ function MainPage() {
         }
         <Pagination pagesArray={pagesArray} setPages={setPage} page={page}/>
       </div>
-      <div style={{width: '100vw', height: 500, marginBottom: 40 }}>
-        <MapComponent objects={objects}></MapComponent>
+      <div style={{width: '100vw', height: 500, marginBottom: 40 }} ref={mapRef} tabIndex="0">
+        <MapComponent
+          selectedObject={selectedObject}
+          objects={objects}
+          showObjectList={true}
+          showBasemap={true}
+        />
       </div>
     </div>
   );

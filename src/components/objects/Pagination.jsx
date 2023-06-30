@@ -9,8 +9,8 @@ const Pagination = ({pagesArray, page, setPages}) => {
             key={p}
             className={'btn ' + classes.pagination__button +
               (p===page
-                ? ' btn-primary'
-                : ' btn-outline-primary')
+                ? ' btn-success'
+                : ' btn-outline-success')
             }
             onClick={()=>{
               setPages(p)

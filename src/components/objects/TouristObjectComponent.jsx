@@ -1,4 +1,5 @@
 import React from "react";
+import {HiOutlineMapPin} from "react-icons/hi2";
 const TouristObjectComponent = (props) => {
   const object = props.object;
   return (
@@ -9,7 +10,7 @@ const TouristObjectComponent = (props) => {
         </div>
         <div className={"object__description"}>
           <h2>{object.name}</h2>
-          <p>{object.location}</p>
+          <p onClick={()=>props.setSelectedObject(object)} className="object__description__location"><HiOutlineMapPin size={26}/>{object.location}</p>
           <p>{object.description}</p>
         </div>
       </div>

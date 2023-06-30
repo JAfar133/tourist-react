@@ -3,11 +3,12 @@ import TouristObjectComponent from "./TouristObjectComponent";
 import "../../styles/objects.css"
 import CustomSelect from "../UI/CustomSelect";
 import Pagination from "./Pagination";
-const TouristObjectList = ({objects, title, remove, limit, setLimit, pagesArray, page, setPage, setModal}) => {
+const TouristObjectList = ({objects, title, remove, limit, setLimit, pagesArray, page, setPage, setModal,setSelectedObject}) => {
   const options = [
     {value: 3, name: 3},
     {value: 4, name: 4},
     {value: 5, name: 5},
+    {value: 8, name: 8},
     {value: 10, name: 10},
     {value: 15, name: 15},
     {value: -1, name: 'Все'},
@@ -31,9 +32,10 @@ const TouristObjectList = ({objects, title, remove, limit, setLimit, pagesArray,
       <div className="objects mt-4">
         {objects.map(obj =>
           <TouristObjectComponent
+            setSelectedObject={setSelectedObject}
             object = {obj}
             key={obj.id}
-            remove={remove}/>
+            remove={remove} />
         )}
         
       

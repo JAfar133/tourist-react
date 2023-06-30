@@ -11,13 +11,12 @@ function MapPage () {
   
   useEffect(()=>{
     const response = ObjectService.getTouristObjects(-1,0)
-    console.log(response.objects)
     setObjects(response.objects)
   },[])
   
   return (
     <div style={{height: 'calc(100vh - 60px)', width: '100vw',marginTop:60}}>
-      <MapComponent objects={objects}></MapComponent>
+      <MapComponent objects={objects} showObjectList={true} showBasemap={true} />
     </div>
     
   );

@@ -13,6 +13,8 @@
     outline-style: none
 }
 .map__list {
+    overflow-y: auto;
+    max-height: 62%;
     position: absolute;
     z-index: 999;
     right: 25px;
@@ -47,4 +49,46 @@
     margin-right: 10px;
     font-size: 16px;
     color: #000;
+}
+.map__popup {
+    display: flex;
+    column-gap: 15px;
+    width: 100%;
+    min-width: 300px;
+}
+.map__popup img {
+    height: 60px;
+    border-radius: 6px;
+}
+.map__geolocation {
+    z-index: 1000;
+    position: absolute;
+    bottom: 30px;
+    right: 25px;
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+}
+.map__geolocation:hover{
+    color: #2F2F2F;
+}
+.hovered {
+    cursor: pointer;
+    width: 300px !important;
+    max-height: 300px;
+    height: 100% !important;
+}
+.none {
+    display: none;
+}
+.block {
+    background: rgba(255,255,255,1);
+    width: 347px;
+    padding: 10px 22px;
+    margin-bottom: 30px;
+    border-radius: 10px 10px 0 0;
+    top: -28px;
+    left: 0;
+    position: absolute;
+    display: block;
 }
